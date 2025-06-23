@@ -1,0 +1,50 @@
+pipeline {
+    agent {
+        label {label 'master'}
+    }
+
+    stages {
+        stage('Clone Codebase') {
+            steps {
+                echo 'Clone from GitHub'
+                git (url : 'https://github.com/Darkomen78/maven-project.git',
+                branch : 'master', credentialsId : 'token_github'
+                    )
+            }
+        }
+         stage('Compile') {
+            steps {
+                echo 'Compiling'
+                withMaven(maven : 'localMaven') {
+                    sh "mvn compile"
+                }
+            }
+        }
+         stage('Testing') {
+            steps {
+                echo 'Testing'
+                withMaven(maven : 'localMaven') {
+                    sh "mvn test"
+                }
+            }
+        }
+         stage('Build') {
+            steps {
+                echo 'Building'
+                withMaven(maven : 'localMaven') {
+                    sh "mvn -B -DskipTests clean package"
+                }
+            }
+        }
+         stage('QA') {
+            steps {
+                echo 'Quality analysis'
+            }
+        }
+         stage('Deploy') {
+            steps {
+                echo 'Deploying'
+            }
+        }    
+    }
+}
