@@ -37,7 +37,7 @@ pipeline {
          stage('QA') {
             steps {
                 echo 'Quality analysis'
-                withSonarQubebEnv(installationName: 'sonarServer', credentialsId:'token_jenkins'){
+                withSonarQubeEnv(installationName: 'sonarServer', credentialsId:'token_jenkins'){
                  sh "mvn clean package sonar:sonar"
 
                 }
