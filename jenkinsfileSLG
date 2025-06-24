@@ -6,7 +6,7 @@ pipeline {
             steps {
                 echo 'Clone from GitHub'
                 git (url : 'https://github.com/Darkomen78/maven-project.git',
-                branch : 'master', credentialsId : 'token_github'
+                branch : 'master'
                     )
             }
         }
